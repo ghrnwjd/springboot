@@ -1,19 +1,15 @@
 package com.hoyoung.springbootTIL.data.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.http.HttpStatus;
-
-import java.net.http.HttpResponse;
+import lombok.*;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class CommonResponseDto<T> {
 
-@Builder
-@Getter
-@Setter
-public class ResponseDTO {
+      private int statusCode;
+      private String status;
+      private T data;
 
-    private HttpStatus httpStatus;
 }

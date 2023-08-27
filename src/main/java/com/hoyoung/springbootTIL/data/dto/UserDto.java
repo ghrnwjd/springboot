@@ -2,32 +2,48 @@ package com.hoyoung.springbootTIL.data.dto;
 
 
 import com.hoyoung.springbootTIL.data.entity.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class UserDTO {
-    private String userName;
-    private String userPassword;
-    private String userEmail;
+@NoArgsConstructor // jackson 라이브러리는 빈 생성자가 없는 모델을 생성하는 방법을 모름.
+@AllArgsConstructor
+public class UserDto {
 
-    public User toEntity() {
+      @NotNull(message = "유저네임 키 값이 없습니다.")
+      @NotBlank(message = "유저네임을 입력하세요.")
+      @Size(max = 20, message = "유저네임 길이를 초과하였습니다.")
+      private String userName;
 
-        return User.builder()
-                .userName(this.userName)
-                .userPassword(this.userPassword)
-                .userEmail(this.userEmail)
-                .userPhoneNumber(null)
-                .build();
-    }
+      @NotNull(message = "비밀번호가 없습니다.")
+      private String userPassword;
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("유저이름: ").append(this.userName).append("\n")
-                .append("유저 패스워드: ").append(this.userPassword).append("\n")
-                .append("유저 이메일: ").append(this.userEmail);
+      @Email(message = "이메일형식이 올바르지 않습니다.")
+      private String userEmail;
 
-        return sb.toString();
-    }
+      private String userPhoneNumber;
+
+      public User toEntity() {
+            return User.builder()
+                    .userName(this.userName)
+                    .userPassword(this.userPassword)
+                    .userEmail(this.userEmail)
+                    .userPhoneNumber(this.userPhoneNumber)
+                    .build();
+      }
+
+      @Override
+      public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("유저이름: ").append(this.userName).append("\n")
+                    .append("유저 패스워드: ").append(this.userPassword).append("\n")
+                    .append("유저 이메일: ").append(this.userEmail);
+
+            return sb.toString();
+      }
 }
