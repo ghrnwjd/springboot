@@ -5,14 +5,10 @@ import com.hoyoung.springbootTIL.data.dto.CommonResponseDto;
 import com.hoyoung.springbootTIL.data.dto.UserDto;
 import com.hoyoung.springbootTIL.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -33,9 +29,9 @@ public class UserAPIController {
       }
 
       @GetMapping("/user/dto")
-      public CommonResponseDto<String> 유저정보출력DTO(UserDto userDTO) {
+      public CommonResponseDto<UserDto> 유저정보출력DTO(@Valid UserDto userDTO, BindingResult bindingResult) {
             return new CommonResponseDto<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
-                    userDTO.toString());
+                    userDTO);
       }
 
       @GetMapping("/user/query")

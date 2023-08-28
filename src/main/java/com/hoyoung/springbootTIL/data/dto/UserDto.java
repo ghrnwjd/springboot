@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor // jackson 라이브러리는 빈 생성자가 없는 모델을 생성하는 방법을 모름.
-@AllArgsConstructor
 public class UserDto {
 
       @NotNull(message = "유저네임 키 값이 없습니다.")
@@ -45,5 +45,12 @@ public class UserDto {
                     .append("유저 이메일: ").append(this.userEmail);
 
             return sb.toString();
+      }
+
+      public UserDto(String userName, String userPassword, String userEmail, String userPhoneNumber) {
+            this.userName = userName;
+            this.userPassword = userPassword;
+            this.userEmail = userEmail;
+            this.userPhoneNumber = userPhoneNumber;
       }
 }

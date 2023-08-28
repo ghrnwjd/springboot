@@ -1,14 +1,20 @@
 package com.hoyoung.springbootTIL.config;
 
 import com.hoyoung.springbootTIL.data.dto.CommonResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +37,8 @@ import java.util.Map;
 @Aspect
 public class BindingAdvice {
 
+
+      private static final Logger log = LoggerFactory.getLogger(BindingAdvice.class);
       // PointCut을 어디로 설정할지
       // 앞 뒤 : 다 관리  @Around
       // 앞 :  제데로 입력안되면 내가 입력 @Before
@@ -51,10 +59,22 @@ public class BindingAdvice {
             for(Object arg : args) {
                   if(arg instanceof BindingResult) {
                         BindingResult bindingResult = (BindingResult) arg;
+
+                        // 서비스 : 정상적인 화면 -> 사용자 요청
+                        // html에서 요청한다면 에러가 발생하는 경우가 적음. 프론트에서 제한조건을 설정하면 되기 때문
+                        //  Postman이나 HTTPURLConnection을 통해서 할때 에러가 주로 발생함
                         if(bindingResult.hasErrors()) {
                               Map<String, String> errorMap = new HashMap<>();
                               for(FieldError error : bindingResult.getFieldErrors()) {
                                     errorMap.put(error.getField(), error.getDefaultMessage());
+                                    // .info .error .debug .warn 등등
+                                    // 로그 레벨 error -> warn -> info -> debug
+                                    // 로그 레벨 설정을 info로 하면 error, warn, info 만 뜸. 레벨이 높은것만 뜸.
+                                    log.warn(type+"."+method+"() => 필드: "+ error.getField() +", 메시지: " + error.getDefaultMessage());
+
+                                    // 로그를 파일로 남기기
+                                    // 1. DB 연결해서 DB 남기기
+                                    // 2. File file = new File(); -> 파일이 엄청 커질 수 있음.
                               }
 
                               return new CommonResponseDto<>(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
@@ -70,8 +90,17 @@ public class BindingAdvice {
 
       @Before("execution(* com.hoyoung.springbootTIL.controller..*Controller.*(..))")
       // Before 어노테이션에는 ProceedingJoinPoint를 사용하지 못함. 컴파일 에러 발생
+      // RequestContextHolder를 사용할 수 있음
       // return은 의미가 없음.
       public void testBeforeCheck() {
-            System.out.println("로그를 남기겠습니다.");
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+            System.out.println("주소: " + request.getRequestURI());
+            System.out.println("전처리 로그를 남기겠습니다.");
       }
+
+      @After("execution(* com.hoyoung.springbootTIL.controller..*Controller.*(..))")
+      public void testAfterCheck() {
+            System.out.println("후처리 로그를 남기겠습니다.");
+      }
+
 }
