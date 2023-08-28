@@ -37,6 +37,7 @@ import java.util.Map;
 @Aspect
 public class BindingAdvice {
 
+
       private static final Logger log = LoggerFactory.getLogger(BindingAdvice.class);
       // PointCut을 어디로 설정할지
       // 앞 뒤 : 다 관리  @Around
@@ -77,6 +78,7 @@ public class BindingAdvice {
                               }
 
                               return new CommonResponseDto<>(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMap);
+
                         }
                   }
             }

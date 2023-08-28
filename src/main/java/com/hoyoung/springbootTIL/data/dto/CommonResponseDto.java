@@ -3,12 +3,16 @@ package com.hoyoung.springbootTIL.data.dto;
 import lombok.*;
 
 
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class CommonResponseDto<T> {
 
       private int statusCode;
       private String status;
       private T data;
+
 
       public CommonResponseDto(int statusCode, String status) {
             this.statusCode = statusCode;
@@ -20,4 +24,5 @@ public class CommonResponseDto<T> {
             this.status = status;
             this.data = data;
       }
+
 }
