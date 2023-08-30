@@ -4,4 +4,4 @@
 
 2023-08-27 <code>[ResponseDto](https://ghrnwjd.tistory.com/entry/SPRING-ResponseDTO)</code>
 
-2023-08-28 <code>[AOP]()</code>
+2023-08-28 <code>[AOP]() </code>
