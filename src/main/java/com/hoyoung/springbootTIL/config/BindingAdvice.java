@@ -78,7 +78,6 @@ public class BindingAdvice {
                               }
 
                               return new CommonResponseDto<>(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), errorMap);
-
                         }
                   }
             }
