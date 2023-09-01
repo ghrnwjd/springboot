@@ -1,10 +1,12 @@
 package com.hoyoung.springbootTIL.data.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,17 +17,21 @@ public class User {
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private int userId;
 
-      @Column(nullable = false)
+      @Column(nullable = false, name="name")
       private String userName;
 
-      @Column(nullable = false)
+      @Column(nullable = false, name = "password")
       private String userPassword;
 
-      @Column
+      @Column(name = "email")
       private String userEmail;
 
-      @Column
+      @Column(name = "phone")
       private String userPhoneNumber;
+
+      @OneToMany
+      @JoinColumn(name="name")
+      List<Memo> memoList = new ArrayList<>();
 
       @Builder
       public User(String userName, String userPassword, String userEmail, String userPhoneNumber) {
