@@ -12,7 +12,6 @@ public class CommonResponseDto<T> {
       private String status;
       private T data;
 
-
       public CommonResponseDto(int statusCode, String status) {
             this.statusCode = statusCode;
             this.status = status;

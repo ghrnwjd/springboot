@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/board")
 public class MemoAPIController {
-
       private MemoService memoService;
 
       public MemoAPIController(MemoService memoService) {
