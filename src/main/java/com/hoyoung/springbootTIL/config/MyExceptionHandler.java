@@ -15,5 +15,4 @@ public class MyExceptionHandler {
       public String errorHandler(Exception e) {
             return e.getMessage();
       }
-
 }

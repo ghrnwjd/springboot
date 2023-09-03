@@ -36,8 +36,6 @@ import java.util.Map;
 @Component
 @Aspect
 public class BindingAdvice {
-
-
       private static final Logger log = LoggerFactory.getLogger(BindingAdvice.class);
       // PointCut을 어디로 설정할지
       // 앞 뒤 : 다 관리  @Around
