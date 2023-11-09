@@ -1,0 +1,48 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+
+  mvc:
+    view:
+      prefix:
+      suffix:
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring?serverTimezone=Asia/Seoul
+    username: ghrnwjd
+    password: 1234
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+      use-new-id-generator-mappings: false
+
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+
+
+iamport:
+  api_key: 5842878545426524
+  secret_key: uPTynitsb7S761sD475LaJs2fmL401X3dcEOiHUehqsazk7Xq2IcIunjs8hsvq2cJkYO2BZCKPofCtaL
