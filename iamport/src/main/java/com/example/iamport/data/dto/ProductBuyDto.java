@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductBuyDto {
 
+      private int boardId;
       private String cellerName;
-      private String price;
-      private String consumerName;
+      private String productPrice;
+      private String buyerNumber;
+      private String productName;
 
 }

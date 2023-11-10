@@ -42,7 +42,7 @@
             <a class="nav-link" href="/board">게시판</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">로그인</a>
+            <a class="nav-link" href="/login">로그인</a>
         </li>
     </ul>
 </nav>
@@ -58,38 +58,54 @@
         </div>
     <br><br>
 
-        <input type="text" id="membername" placeholder="이름을 입력해주세요"><br>
         <button onclick="payment()" class="btn btn-secondary btn-lg btn-block">해당 상품 구매</button>
 <!--        <script src="./js/payment.js"></script>-->
 
 </div>
 
 <script>
-function payment() {
-    console.log("실행함");
-    var IMP = window.IMP;
-	IMP.init('imp61287003');
-	IMP.request_pay({
-		pg : 'kakaopay.TC0ONETIME',
-		pay_method : 'card',
-		merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
-		name : '신시책',                                  //상품명
-		amount : 4000                  //가격
-		// customer_uid : buyer_name + new Date().getTime(),  //해당 파라미터값이 있어야 빌링 키 발급 시도
-		// buyer_email : $('.sessionuserID').val(),             //구매자 이메일
-		// buyer_name : 'buyer_name',                           //구매자 이름
-		// buyer_tel : 'hp',                                    //전화번호
-		// buyer_addr : 'addr',	                             //주소
-		// buyer_postcode : '123-456'                           //우편번호
-	}, function(rsp) {
-	    if(rsp.success) {
-	        alert("성공");
-	    }
-	    else{
-	        alert("실패");
-	    }
-	});
-	console.log("끝남");
+
+
+
+    function payment() {
+
+        let data = {
+            "boardId" : [[${board.boardId}]],
+            "productName" : "[[${product.productName}]]",
+            "productPrice" : [[${product.productPrice}]],
+            "cellerName" : "[[${member.membername}]]",
+            "buyerNumber" : "[[${buyer}]]"
+        }
+        console.log("실행함");
+        var IMP = window.IMP;
+        IMP.init('imp61287003');
+        IMP.request_pay({
+            pg : 'kakaopay.TC0ONETIME',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
+            name : data['productName'],                   //상품명
+            amount : data['productPrice']                  //가격
+        }, function(rsp) {
+            if(rsp.success) {
+                $.ajax({
+                    type: 'put',   //put 방식으로 전송
+                    url: '/board/buy',   //데이터를 주고받을 파일 주소
+                    data: JSON.stringify(data),   //위의 변수에 담긴 데이터를 전송해준다.
+                    dataType: 'JSON',   //html 파일 형식으로 값을 담아온다.
+                    contentType: "application/json; charset-utf-8",
+                    success: function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
+                        alert("구매 성공하였습니다.");
+                    },
+                    error: function(){
+                        alert("구매 실패하였습니다.", data);
+                    }
+                });
+            }
+            else{
+                alert("실패");
+            }
+        });
+        console.log("끝남");
 }
 </script>
 

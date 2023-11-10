@@ -1,2 +1,0 @@
-[2023-08-28 16:55:02:12597][http-nio-8000-exec-1] WARN  c.h.s.config.BindingAdvice - com.hoyoung.springbootTIL.controller.api.UserAPIController.유저회원가입() => 필드: userName, 메시지: 유저네임을 입력하세요.
-[2023-08-28 16:55:02:12597][http-nio-8000-exec-1] WARN  c.h.s.config.BindingAdvice - com.hoyoung.springbootTIL.controller.api.UserAPIController.유저회원가입() => 필드: userName, 메시지: 유저네임 키 값이 없습니다.

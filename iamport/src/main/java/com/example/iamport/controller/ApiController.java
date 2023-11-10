@@ -3,13 +3,15 @@ package com.example.iamport.controller;
 
 import com.example.iamport.data.dto.BoardDto;
 import com.example.iamport.data.dto.MemberJoinDto;
+import com.example.iamport.data.dto.MemberLoginDto;
 import com.example.iamport.data.dto.ProductBuyDto;
+import com.example.iamport.data.dto.same.MemberSameDto;
+import com.example.iamport.data.entity.Member;
 import com.example.iamport.service.BoardService;
 import com.example.iamport.service.MemberService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ApiController {
@@ -42,4 +44,6 @@ public class ApiController {
             memberService.멤버추가(memberJoinDTO);
             return  "멤버추가됨";
       }
+
+
 }

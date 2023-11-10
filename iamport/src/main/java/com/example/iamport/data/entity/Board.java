@@ -42,6 +42,6 @@ public class Board {
       }
 
       public BoardSameDto toSameDTO() {
-            return new BoardSameDto(this.title, this.content);
+            return new BoardSameDto(this.id, this.title, this.content);
       }
 }

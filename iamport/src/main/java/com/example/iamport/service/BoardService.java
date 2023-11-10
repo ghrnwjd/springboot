@@ -78,11 +78,15 @@ public class BoardService {
       @Transactional
       public void 상품구매(ProductBuyDto productBuyDto) {
             String cellerName = productBuyDto.getCellerName();
-            String consumerName = productBuyDto.getConsumerName();
-            int productPrice = Integer.parseInt(productBuyDto.getPrice());
+            String consumerNumber = productBuyDto.getBuyerNumber();
+            int productPrice = Integer.parseInt(productBuyDto.getProductPrice());
 
+            Product product = productRepository.findByProductName(productBuyDto.getProductName());
             Member celler = memberRepository.findByMembername(cellerName);
-            Member consumer = memberRepository.findByMembername(consumerName);
+            Member consumer = memberRepository.findByMemberNumber(consumerNumber);
+            Board board = boardRepository.findById(productBuyDto.getBoardId()).orElseGet(() -> {
+                  return null;
+            });
 
             System.out.println("구매 전 판매자 잔고 : " + celler.getAccount());
             System.out.println("구매 전 구매자 잔고 : " + consumer.getAccount());
@@ -91,6 +95,9 @@ public class BoardService {
 
             System.out.println("구매 후 판매자 잔고 : " + celler.getAccount());
             System.out.println("구매 후 구매자 잔고 : " + consumer.getAccount());
+
+            board.setMember(consumer);
+            product.setMember(consumer);
 
       }
 
