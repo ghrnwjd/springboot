@@ -44,5 +44,4 @@ public class PaymentsService {
             PaymentInfo paymentInfo =  paymentLookupService(paymentNo);
             return iamportClientApi.paymentByImpUid(paymentInfo.getImpUid());
       }
-
 }
