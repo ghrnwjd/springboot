@@ -1,4 +1,8 @@
 spring:
+  security:
+    user:
+      name: Jung
+      password: 1234
   output:
     ansi:
       enabled: always

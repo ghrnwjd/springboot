@@ -1,6 +1,7 @@
 package com.ghrnwjd.httpresponsecode.data.dto;
 
 
+import com.ghrnwjd.httpresponsecode.data.RoleType;
 import com.ghrnwjd.httpresponsecode.data.entity.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class PersonDTO {
     private String lastName;
 
     public Person toEntity() {
-        return new Person(this.firstName, this.lastName);
+        return new Person(this.firstName, this.lastName, RoleType.USER);
     }
 }

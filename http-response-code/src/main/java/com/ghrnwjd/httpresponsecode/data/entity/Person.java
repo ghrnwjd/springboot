@@ -1,9 +1,7 @@
 package com.ghrnwjd.httpresponsecode.data.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ghrnwjd.httpresponsecode.data.RoleType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +13,16 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int personId;
-    private String firstName;
-    private String lastName;
+    private int id;
+    private String name;
+    private String password;
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    public Person(String name, String password, RoleType roleType) {
+        this.name = name;
+        this.password = password;
+        this.roleType = roleType;
     }
 }
